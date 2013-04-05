@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EAF922CA-C228-4599-9D1A-4CC5AA3C2DCF}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FOUpdater</RootNamespace>
+    <AssemblyName>UpdaterConsole</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Build\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Build\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>..\FOUpdater\Resources\Updater.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>FOUpdater.FOUpdater</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\FOUpdater\CRC32.cs">
+      <Link>CRC32.cs</Link>
+    </Compile>
+    <Compile Include="..\FOUpdater\FOCommon\IniReader.cs">
+      <Link>FOCommon\IniReader.cs</Link>
+    </Compile>
+    <Compile Include="..\FOUpdater\FOUpdater.cs">
+      <Link>FOUpdater.cs</Link>
+    </Compile>
+    <Compile Include="..\FOUpdater\Properties\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\FOUpdater\Zlib\CRC32.cs">
+      <Link>Zlib\CRC32.cs</Link>
+    </Compile>
+    <Compile Include="..\FOUpdater\Zlib\Deflate.cs">
+      <Link>Zlib\Deflate.cs</Link>
+    </Compile>
+    <Compile Include="..\FOUpdater\Zlib\DeflateStream.cs">
+      <Link>Zlib\DeflateStream.cs</Link>
+    </Compile>
+    <Compile Include="..\FOUpdater\Zlib\GZipStream.cs">
+      <Link>Zlib\GZipStream.cs</Link>
+    </Compile>
+    <Compile Include="..\FOUpdater\Zlib\Inflate.cs">
+      <Link>Zlib\Inflate.cs</Link>
+    </Compile>
+    <Compile Include="..\FOUpdater\Zlib\InfTree.cs">
+      <Link>Zlib\InfTree.cs</Link>
+    </Compile>
+    <Compile Include="..\FOUpdater\Zlib\ParallelDeflateOutputStream.cs">
+      <Link>Zlib\ParallelDeflateOutputStream.cs</Link>
+    </Compile>
+    <Compile Include="..\FOUpdater\Zlib\Tree.cs">
+      <Link>Zlib\Tree.cs</Link>
+    </Compile>
+    <Compile Include="..\FOUpdater\Zlib\Zlib.cs">
+      <Link>Zlib\Zlib.cs</Link>
+    </Compile>
+    <Compile Include="..\FOUpdater\Zlib\ZlibBaseStream.cs">
+      <Link>Zlib\ZlibBaseStream.cs</Link>
+    </Compile>
+    <Compile Include="..\FOUpdater\Zlib\ZlibCodec.cs">
+      <Link>Zlib\ZlibCodec.cs</Link>
+    </Compile>
+    <Compile Include="..\FOUpdater\Zlib\ZlibConstants.cs">
+      <Link>Zlib\ZlibConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\FOUpdater\Zlib\ZlibStream.cs">
+      <Link>Zlib\ZlibStream.cs</Link>
+    </Compile>
+    <Compile Include="FOUpdaterConsole.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FOCommon\_FOCommon.txt" />
+    <Content Include="Zlib\_Zlib.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
