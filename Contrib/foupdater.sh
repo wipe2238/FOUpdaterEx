@@ -2,7 +2,7 @@
 # bash FOUpdater
 # by jan0s1k
 # http://jan0s1k.fode.eu/fonline/updater.sh
-# http://fonline2238.net/forum/index.php/topic,26023.msg246047.html#msg246047
+# http://fodev.net/forum/index.php/topic,26023.msg246047.html#msg246047
 
 VERSION="0.1.0"
 SERVER="http://fonline2238.net/update/"
