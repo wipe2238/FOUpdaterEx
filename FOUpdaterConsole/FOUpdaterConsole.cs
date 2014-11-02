@@ -52,6 +52,7 @@ namespace FOUpdater
                 {
                     Console.Write( "Press any key to exit..." );
                     Console.ReadKey( true ); ;
+                    Console.WriteLine();
                 }
             }
         }
