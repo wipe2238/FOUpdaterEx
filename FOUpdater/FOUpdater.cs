@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 
+using STA.Settings;
 using Ionic.Zlib;
 
 namespace FOUpdater
@@ -154,7 +155,7 @@ namespace FOUpdater
             }
         }
 
-        public IniReader FOnlineCfg { get; private set; }
+        public IniFile FOnlineCfg { get; private set; }
 
         public List<string> Sources { get; private set; }
 
@@ -191,11 +192,11 @@ namespace FOUpdater
             Directory.SetCurrentDirectory( Directory.GetParent( Assembly.GetExecutingAssembly().Location ).ToString() );
 
             if( fonlineCfg != null && File.Exists( fonlineCfg ) )
-                this.FOnlineCfg = new IniReader( fonlineCfg );
+                this.FOnlineCfg = new IniFile( fonlineCfg );
             else
             {
-                if( File.Exists( ".\\" + Strings.ConfigFile ) )
-                    this.FOnlineCfg = new IniReader( ".\\" + Strings.ConfigFile );
+                if( File.Exists( Strings.ConfigFile ) )
+                    this.FOnlineCfg = new IniFile( Strings.ConfigFile );
             }
         }
 
@@ -223,17 +224,18 @@ namespace FOUpdater
                 if( this.GetUpdateType( defaultSource ) != FOUpdateType.Unknown )
                     sources.Add( defaultSource );
 
-                if( this.FOnlineCfg == null && !File.Exists( "FOnline.cfg" ) )
+                if( this.FOnlineCfg == null && !File.Exists( Strings.ConfigFile ) )
                 {
-                    using( StreamWriter file = File.CreateText( ".\\" + Strings.ConfigFile ) )
+                    using( StreamWriter file = File.CreateText( Strings.ConfigFile ) )
                     {
                         file.Flush();
                         file.Close();
                     }
-                    if( File.Exists( ".\\" + Strings.ConfigFile ) )
+                    if( File.Exists( Strings.ConfigFile ) )
                     {
-                        this.FOnlineCfg = new IniReader( ".\\" + Strings.ConfigFile );
-                        this.FOnlineCfg.IniWriteValue( Strings.Section, Strings.Source + "0", defaultSource );
+                        this.FOnlineCfg = new IniFile( Strings.ConfigFile );
+                        this.FOnlineCfg.SetValue( Strings.Section, Strings.Source + "0", defaultSource );
+                        this.FOnlineCfg.Flush();
                         this.Sources.Add( defaultSource );
                     }
                 }
@@ -244,7 +246,7 @@ namespace FOUpdater
                 {
                     for( uint s = 0; s < uint.MaxValue; s++ )
                     {
-                        string source = this.FOnlineCfg.IniReadValue( Strings.Section, Strings.Source + s );
+                        string source = this.FOnlineCfg.GetValue( Strings.Section, Strings.Source + s, (string)null );
                         if( source == null || source.Length == 0 )
                             break;
                         else if( this.GetUpdateType( source ) != FOUpdateType.Unknown )
@@ -260,7 +262,7 @@ namespace FOUpdater
             if( sources.Count == 0 )
                 return (FOUpdaterResult.InvalidConfig);
 
-            if( this.FOnlineCfg.IniReadValueBool( FOUpdaterClient.Strings.Section, FOUpdaterClient.Strings.RandomSource ) )
+            if( this.FOnlineCfg.GetValue( FOUpdaterClient.Strings.Section, FOUpdaterClient.Strings.RandomSource, false ) )
             {
                 List<string> randomList = new List<string>();
                 Random random = new Random( (int)DateTime.Now.Ticks );
@@ -1164,8 +1166,10 @@ namespace FOUpdater
                 {
                     if( vars[0] == "config" )
                     {
-                        if( this.Parent.FOnlineCfg != null )
-                            this.Parent.FOnlineCfg.IniWriteValue( FOUpdaterClient.Strings.Section, vars[1], vars[2] );
+                        if( this.Parent.FOnlineCfg != null ) {
+                            this.Parent.FOnlineCfg.SetValue( FOUpdaterClient.Strings.Section, vars[1], vars[2] );
+                            this.Parent.FOnlineCfg.Flush();
+                        }
                         continue;
                     }
                     else if( vars[0] == "updater" )

@@ -121,7 +121,7 @@ namespace FOUpdater
             {
                 string run = null;
                 if( updater.FOnlineCfg != null )
-                    run = updater.FOnlineCfg.IniReadValue( FOUpdaterClient.Strings.Section, FOUpdaterClient.Strings.Run );
+                    run = updater.FOnlineCfg.GetValue( FOUpdaterClient.Strings.Section, FOUpdaterClient.Strings.Run, (string)null );
 
                 if( run != null && run.Length > 0 )
                 {
@@ -140,7 +140,7 @@ namespace FOUpdater
                     string[] program = { "FOnline", "FOnlineGL" };
 
                     if( updater.FOnlineCfg != null )
-                        run = updater.FOnlineCfg.IniReadValue( "FOConfig", "PlayProgram" );
+                        run = updater.FOnlineCfg.GetValue( "FOConfig", "PlayProgram", (string)null );
                     byte tmp = byte.MaxValue;
                     if( run != null && run.Length > 0 &&
                         byte.TryParse( run, out tmp ) &&
@@ -149,7 +149,7 @@ namespace FOUpdater
                     {
                         this.buttonCancel.Enabled = true;
                         this.buttonCancel.Text = "Run " + program[tmp];
-                        if( updater.FOnlineCfg.IniReadValueBool( "FOConfig", "SkipLogin" ) )
+                        if( updater.FOnlineCfg.GetValue( "FOConfig", "SkipLogin", false ) )
                             this.buttonCancel.Tag = new string[] { program[tmp], "-Start" };
                         else
                             this.buttonCancel.Tag = new string[] { program[tmp], null };

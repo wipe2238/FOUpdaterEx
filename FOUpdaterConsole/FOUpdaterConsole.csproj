@@ -10,7 +10,6 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FOUpdater</RootNamespace>
     <AssemblyName>UpdaterConsole</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -49,8 +48,8 @@
     <Compile Include="..\FOUpdater\CRC32.cs">
       <Link>CRC32.cs</Link>
     </Compile>
-    <Compile Include="..\FOUpdater\FOCommon\IniReader.cs">
-      <Link>FOCommon\IniReader.cs</Link>
+    <Compile Include="..\FOUpdater\FOCommon\IniFile.cs">
+      <Link>FOCommon\IniFile.cs</Link>
     </Compile>
     <Compile Include="..\FOUpdater\FOUpdater.cs">
       <Link>FOUpdater.cs</Link>
